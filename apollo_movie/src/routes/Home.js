@@ -2,6 +2,7 @@ import React from "react";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import styled from "styled-components";
+import Movie from "../components/Movie";
 
 const GET_MOVIES = gql`
   {
@@ -48,11 +49,8 @@ const Loading = styled.div`
 `;
 
 export default function Home() {
-  const { loading, error, data } = useQuery(GET_MOVIES);
+  const { loading, data } = useQuery(GET_MOVIES);
 
-  console.log(loading);
-  console.log(error);
-  console.log(data);
   return (
     <Container>
       <Header>
@@ -60,6 +58,7 @@ export default function Home() {
         <Subtitle>Movie App built with React, Apollo and GraphQL</Subtitle>
       </Header>
       {loading && <Loading>Loading...</Loading>}
+      {!loading && data.movies && data.movies.map((m) => <Movie key={m.id} id={m.id} />)}
     </Container>
   );
 }
