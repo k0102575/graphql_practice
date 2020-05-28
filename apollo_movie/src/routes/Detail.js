@@ -17,11 +17,14 @@ const GET_MOVIE = gql`
 export default function Detail() {
   const { id } = useParams();
   const { loading, data } = useQuery(GET_MOVIE, {
-    variables: { id },
+    variables: { id: parseInt(id) },
   });
 
-  console.log(loading);
-  console.log(data);
+  if (loading) {
+    return "loading";
+  }
 
-  return <div>Detail</div>;
+  if (data && data.movie) {
+    return data.movie.title;
+  }
 }
