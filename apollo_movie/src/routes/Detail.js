@@ -13,6 +13,10 @@ const GET_MOVIE = gql`
       language
       rating
     }
+    suggestions(id: $id) {
+      id
+      medium_cover_image
+    }
   }
 `;
 
